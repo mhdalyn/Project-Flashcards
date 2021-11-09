@@ -6,6 +6,7 @@ import CreateDeckButton from "./HomePage/CreateDeckButton";
 import DeckList from "./HomePage/DeckList"
 import DeckCreator from "./DeckCreator"
 import Study from "./StudyPage/Study"
+import DeckView from "./DeckViewer";
 
 function Layout() {
   return (
@@ -23,6 +24,9 @@ function Layout() {
           </Route>
           <Route path="/decks/:deckId/study">
             <Study />
+          </Route>
+          <Route exact path="/decks/:deckId">
+            <DeckView />
           </Route>
           <Route>
             <NotFound />

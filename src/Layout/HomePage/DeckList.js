@@ -35,7 +35,7 @@ export default function DeckList() {
             <h1>{deck.name}</h1>
             <p>{deck.description}</p>
             <p>{deck.cards.length} Cards</p>
-            <Link className="btn btn-secondary" to={`/decks/${deck.id}/`}>
+            <Link className="btn btn-secondary" to={`/decks/${deck.id}`}>
               View
             </Link>
             <Link className="btn btn-primary" to={`/decks/${deck.id}/study`}>

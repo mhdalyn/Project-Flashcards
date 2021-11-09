@@ -11,6 +11,8 @@ export default function Study() {
   const [card, setCard] = useState("");
   //stores index position to navigate the deck's card array
   const [index, setIndex] = useState(0);
+  //tracks which side of card is displayed
+  const [side, setSide] = useState("front")
   const history = useHistory();
 
   //initializes deck state from API
@@ -28,19 +30,39 @@ export default function Study() {
     if (deck.cards) {
       if (deck.cards.length > 3) {
         const currentCard = deck.cards[index];
-        setCard(
-          <div className="card w-75">
-            <div className="card-body">
-              <h5 className="card-title">
-                Card {index + 1} of {deck.cards.length}
-              </h5>
-              <p className="card-text">{currentCard.front}</p>
-              <button className="btn btn-secondary" onClick={handleFlip}>
-                Flip
-              </button>
+        if (side === "front") {
+          setCard(
+            <div className="card w-75">
+              <div className="card-body">
+                <h5 className="card-title">
+                  Card {index + 1} of {deck.cards.length}
+                </h5>
+                <p className="card-text">{currentCard.front}</p>
+                <button className="btn btn-secondary" onClick={handleFlip}>
+                  Flip
+                </button>
+              </div>
             </div>
-          </div>
-        );
+          );
+        } else {
+          setCard(
+            <div className="card w-75">
+              <div className="card-body">
+                <h5 className="card-title">
+                  Card {index + 1} of {deck.cards.length}
+                </h5>
+                <p className="card-text">{currentCard.back}</p>
+                <button className="btn btn-secondary" onClick={handleFlip}>
+                  Flip
+                </button>
+                <button className="btn btn-primary" onClick={handleNext}>
+                  Next
+                </button>
+              </div>
+            </div>
+            )
+        }
+        
       } else {
         setCard(
           <div className="card w-75">
@@ -62,36 +84,29 @@ export default function Study() {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [deck, index]);
+  }, [deck, index, side]);
 
   //rerenders card from front text to back text, as well as switching from flip to next button
   function handleFlip() {
-    const currentCard = deck.cards[index];
-    setCard(
-      <div className="card w-75">
-        <div className="card-body">
-          <h5 className="card-title">
-            Card {index + 1} of {deck.cards.length}
-          </h5>
-          <p className="card-text">{currentCard.back}</p>
-          <button className="btn btn-secondary" onClick={handleNext}>
-            Next
-          </button>
-        </div>
-      </div>
-    );
+    if (side==="front") {
+      setSide("back")
+    } else {
+      setSide("front")
+    }
   }
 
   //increases index until the final card, then prompts user to decide to restart or return to home page
   function handleNext() {
     if (index + 1 < deck.cards.length) {
       setIndex(index + 1);
+      setSide("front")
     } else {
       const response = window.confirm(
         "Restart cards? \n \n Click 'cancel' to return to the home page."
       );
       if (response) {
         setIndex(0);
+        setSide("front")
       } else {
         history.push("/");
       }
