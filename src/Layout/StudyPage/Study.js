@@ -118,7 +118,7 @@ export default function Study() {
       <nav aria-label="breadcrumb">
         <ol className="breadcrumb">
           <li className="breadcrumb-item">
-            <Link to="/">Home</Link>
+            <Link to="/"><span className="oi oi-home" /> Home</Link>
           </li>
           <li className="breadcrumb-item">
             <Link to={`/decks/${deck.id}`}>{deck.name}</Link>

@@ -31,7 +31,7 @@ export default function DeckView() {
             <nav aria-label="breadcrumb">
                 <ol className="breadcrumb">
                     <li className="breadcrumb-item">
-                        <Link to="/">Home</Link>
+                        <Link to="/"><span className="oi oi-home" /> Home</Link>
                     </li>
                     <li className="breadcrumb-item active" aria-current="page">
                         {deck.name}
@@ -41,19 +41,19 @@ export default function DeckView() {
             <h5>{deck.name}</h5>
             <p>{deck.description}</p>
             <Link className="btn btn-secondary" to={`/decks/${deck.id}/edit`}>
-                Edit
+            <span className="oi oi-pencil" /> Edit
             </Link>
             <Link className="btn btn-primary" to={`/decks/${deck.id}/study`}>
-                Study
+            <span className="oi oi-book" /> Study
             </Link>
             <Link className="btn btn-primary" to={`/decks/${deck.id}/cards/new`}>
-                + Add Cards
+            <span className="oi oi-plus" /> Add Cards
             </Link>
             <button
                 className="btn btn-danger"
                 onClick={() => handleDeleteDeck(deck.id)}
             >
-                Delete
+               <span className="oi oi-trash" /> Delete
             </button>
             <div>
                 <h3>Cards</h3>

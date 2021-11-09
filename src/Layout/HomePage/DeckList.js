@@ -36,16 +36,15 @@ export default function DeckList() {
             <p>{deck.description}</p>
             <p>{deck.cards.length} Cards</p>
             <Link className="btn btn-secondary" to={`/decks/${deck.id}`}>
-              View
+            <span className="oi oi-pencil" /> View
             </Link>
             <Link className="btn btn-primary" to={`/decks/${deck.id}/study`}>
-              Study
+            <span className="oi oi-book" /> Study
             </Link>
             <button
               className="btn btn-danger"
               onClick={() => handleDelete(deck.id)}
-            >
-              Delete
+            ><span className="oi oi-trash" /> Delete
             </button>
           </div>
         );
