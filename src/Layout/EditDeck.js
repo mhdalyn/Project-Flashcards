@@ -1,20 +1,27 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router";
+import React, { useState, useEffect } from "react";
+import { useHistory, useParams } from "react-router";
 import { Link } from "react-router-dom";
-import { createDeck } from "../utils/api";
+import { updateDeck , readDeck } from "../utils/api";
 
-export default function DeckCreator() {
+export default function EditDeck() {
+    const {deckId} = useParams();
     const history = useHistory();
-    const [deckName, setDeckName] = useState("");
-    const [description, setDescription] = useState("");
-    const handleDeckNameChange = (event) => setDeckName(event.target.value);
-    const handleDescriptionChange = (event) => setDescription(event.target.value);
+    const [deck, setDeck] = useState({});
+    const handleDeckNameChange = (event) => setDeck({name:event.target.value , description:deck.description, id:deck.id, cards:deck.cards });
+    const handleDescriptionChange = (event) => setDeck({name:deck.name , description:event.target.value, id:deck.id, cards:deck.cards });
     async function submitHandler(event) {
         event.preventDefault();
-        const deck = { name: deckName, description: description };
-        const response = await createDeck(deck);
-        history.push(`/decks/${response.id}`);
+        await updateDeck(deck);
+        history.push(`/decks/${deckId}`);
     }
+    async function loadDeck() {
+        const response = await readDeck(deckId);
+        setDeck(response);
+    }
+    useEffect(() => {
+        loadDeck();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
     return (
         <div>
             <nav aria-label="breadcrumb">
@@ -22,8 +29,11 @@ export default function DeckCreator() {
                     <li className="breadcrumb-item">
                         <Link to="/"><span className="oi oi-home" /> Home</Link>
                     </li>
+                    <li className="breadcrumb-item">
+                        <Link to={`/decks/${deck.id}`}>{deck.name}</Link>
+                    </li>
                     <li className="breadcrumb-item active" aria-current="page">
-                        Create Deck
+                        Edit Deck
                     </li>
                 </ol>
             </nav>
@@ -36,7 +46,7 @@ export default function DeckCreator() {
                         id="name"
                         placeholder="Deck Name"
                         onChange={handleDeckNameChange}
-                        value={deckName}
+                        value={deck.name}
                     />
                 </div>
                 <div className="form-group">
@@ -47,7 +57,7 @@ export default function DeckCreator() {
                         rows="3"
                         placeholder="Brief description of the deck"
                         onChange={handleDescriptionChange}
-                        value={description}
+                        value={deck.description}
                     ></textarea>
                 </div>
                 <Link className="btn btn-secondary" to="/">

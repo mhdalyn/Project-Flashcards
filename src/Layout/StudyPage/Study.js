@@ -28,7 +28,7 @@ export default function Study() {
   useEffect(() => {
     //uses an if to only run once deck state is loaded
     if (deck.cards) {
-      if (deck.cards.length > 3) {
+      if (deck.cards.length > 2) {
         const currentCard = deck.cards[index];
         if (side === "front") {
           setCard(
