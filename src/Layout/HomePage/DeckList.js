@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { deleteDeck, listDecks } from "../../utils/api";
+import DeleteButton from "../DeleteButton";
 
 export default function DeckList() {
   const [deckList, setDeckList] = useState([]);
@@ -41,11 +42,7 @@ export default function DeckList() {
             <Link className="btn btn-primary" to={`/decks/${deck.id}/study`}>
               <span className="oi oi-book" /> Study
             </Link>
-            <button
-              className="btn btn-danger"
-              onClick={() => handleDelete(deck.id)}
-            ><span className="oi oi-trash" />
-            </button>
+            <DeleteButton handler={handleDelete} id={deck.id} />
           </div>
         );
       })

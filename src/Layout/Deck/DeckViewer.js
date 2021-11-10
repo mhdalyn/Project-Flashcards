@@ -3,6 +3,7 @@ import { useHistory, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { readDeck } from "../../utils/api";
 import { deleteDeck, deleteCard } from "../../utils/api";
+import DeleteButton from "../DeleteButton";
 
 export default function DeckView() {
     const history = useHistory();
@@ -63,11 +64,7 @@ export default function DeckView() {
                             <Link className="btn btn-secondary" to={`/decks/${deck.id}/cards/${card.id}/edit`}>
                                 <span className="oi oi-pencil" /> Edit Card
                             </Link>
-                            <button
-                                className="btn btn-danger"
-                                onClick={() => handleDeleteCard(card.id)}>
-                                <span className="oi oi-trash" />
-                            </button>
+                            <DeleteButton handler={handleDeleteCard} id={card.id} />
                         </div>
                     </div>
                 )
@@ -98,12 +95,7 @@ export default function DeckView() {
             <Link className="btn btn-primary" to={`/decks/${deck.id}/cards/new`}>
                 <span className="oi oi-plus" /> Add Cards
             </Link>
-            <button
-                className="btn btn-danger"
-                onClick={() => handleDeleteDeck(deck.id)}
-            >
-                <span className="oi oi-trash" />
-            </button>
+            <DeleteButton handler={handleDeleteDeck} id={deck.id} />
             <div>
                 <h3>Cards</h3>
                 {cardList}
