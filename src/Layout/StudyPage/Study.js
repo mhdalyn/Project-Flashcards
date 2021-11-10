@@ -76,7 +76,7 @@ export default function Study() {
                 className="btn btn-secondary"
                 to={`/decks/${deck.id}/cards/new`}
               >
-                + Add Cards
+                <span className="oi oi-plus" /> Add Cards
               </Link>
             </div>
           </div>

@@ -44,7 +44,7 @@ export default function DeckList() {
             <button
               className="btn btn-danger"
               onClick={() => handleDelete(deck.id)}
-            ><span className="oi oi-trash" /> Delete
+            ><span className="oi oi-trash" />
             </button>
           </div>
         );

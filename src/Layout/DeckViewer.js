@@ -8,6 +8,7 @@ export default function DeckView() {
     const history = useHistory();
     const { deckId } = useParams();
     const [deck, setDeck] = useState({});
+    const [cardList, setCardList] = useState([]);
     useEffect(() => {
         async function loadDeck() {
             const response = await readDeck(deckId);
@@ -25,7 +26,9 @@ export default function DeckView() {
             history.push("/")
         }
     };
-
+    useEffect(() => {
+        
+    }, [cardList])
     return (
         <div>
             <nav aria-label="breadcrumb">
@@ -53,7 +56,7 @@ export default function DeckView() {
                 className="btn btn-danger"
                 onClick={() => handleDeleteDeck(deck.id)}
             >
-               <span className="oi oi-trash" /> Delete
+               <span className="oi oi-trash" />
             </button>
             <div>
                 <h3>Cards</h3>
