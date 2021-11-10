@@ -60,9 +60,9 @@ export default function Study() {
                 </button>
               </div>
             </div>
-            )
+          )
         }
-        
+
       } else {
         setCard(
           <div className="card w-75">
@@ -88,7 +88,7 @@ export default function Study() {
 
   //rerenders card from front text to back text, as well as switching from flip to next button
   function handleFlip() {
-    if (side==="front") {
+    if (side === "front") {
       setSide("back")
     } else {
       setSide("front")

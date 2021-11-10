@@ -1,21 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router";
 import { Link } from "react-router-dom";
-import { readDeck } from "../utils/api";
-import { deleteDeck, deleteCard } from "../utils/api";
+import { readDeck } from "../../utils/api";
+import { deleteDeck, deleteCard } from "../../utils/api";
 
 export default function DeckView() {
     const history = useHistory();
     const { deckId } = useParams();
     const [deck, setDeck] = useState({});
     const [cardList, setCardList] = useState([]);
+
+    //loadDeck exists outside the useEffect to allow handleDeleteCard to call it to rerender after cards are deleted
     async function loadDeck() {
         const response = await readDeck(deckId);
         setDeck(response);
     }
+
     useEffect(() => {
         loadDeck();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [deckId]);
     //deletes a deck when delete button is pressed
     const handleDeleteDeck = async (id) => {
@@ -27,7 +30,8 @@ export default function DeckView() {
             history.push("/")
         }
     };
-    //TODO
+
+    //deletes a card when delete button is pressed, then rerenders the page
     const handleDeleteCard = async (id) => {
         const result = window.confirm(
             "Delete this card? \n \n You will not be able to recover it."
@@ -37,6 +41,7 @@ export default function DeckView() {
             loadDeck();
         }
     };
+    
     useEffect(() => {
         if (deck.cards) {
             setCardList(deck.cards.map((card) => {
@@ -60,14 +65,13 @@ export default function DeckView() {
                             </Link>
                             <button
                                 className="btn btn-danger"
-                                onClick={() => handleDeleteCard(deck.id)}>
+                                onClick={() => handleDeleteCard(card.id)}>
                                 <span className="oi oi-trash" />
                             </button>
                         </div>
                     </div>
                 )
             }))
-        } else {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [deck])

@@ -36,10 +36,10 @@ export default function DeckList() {
             <p>{deck.cards.length} cards</p>
             <p>{deck.description}</p>
             <Link className="btn btn-secondary" to={`/decks/${deck.id}`}>
-            <span className="oi oi-pencil" /> View
+              <span className="oi oi-pencil" /> View
             </Link>
             <Link className="btn btn-primary" to={`/decks/${deck.id}/study`}>
-            <span className="oi oi-book" /> Study
+              <span className="oi oi-book" /> Study
             </Link>
             <button
               className="btn btn-danger"

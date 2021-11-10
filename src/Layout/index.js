@@ -4,19 +4,18 @@ import Header from "./Header";
 import NotFound from "./NotFound";
 import CreateDeckButton from "./HomePage/CreateDeckButton";
 import DeckList from "./HomePage/DeckList"
-import DeckCreator from "./DeckCreator"
+import DeckCreator from "./Deck/DeckCreator"
 import Study from "./StudyPage/Study"
-import DeckView from "./DeckViewer";
-import EditCard from "./EditCard";
-import EditDeck from "./EditDeck";
-import AddCard from "./AddCard";
+import DeckView from "./Deck/DeckViewer";
+import EditCard from "./Cards/EditCard";
+import EditDeck from "./Deck/EditDeck";
+import AddCard from "./Cards/AddCard";
 
 function Layout() {
   return (
     <>
       <Header />
       <div className="container">
-        {/* TODO: Implement the screen starting here */}
         <Switch>
           <Route exact path="/">
             <CreateDeckButton />
