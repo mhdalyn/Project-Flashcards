@@ -8,8 +8,10 @@ export default function EditDeck() {
     const { deckId } = useParams();
     const history = useHistory();
     const [deck, setDeck] = useState({ name: "", description: "" });
+    //sets deck name/description to match the current deck properties on page load, then track changes as it is edited
     const handleDeckNameChange = (event) => setDeck({ name: event.target.value, description: deck.description, id: deck.id, cards: deck.cards });
     const handleDescriptionChange = (event) => setDeck({ name: deck.name, description: event.target.value, id: deck.id, cards: deck.cards });
+    //saves changes and then takes user back to deck view page on submission
     async function submitHandler(event) {
         event.preventDefault();
         await updateDeck(deck);

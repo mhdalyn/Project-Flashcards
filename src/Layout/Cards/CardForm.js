@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 
-
+//shared form component for both edit and add card pages
 export default function CardForm({ handleFrontChange, handleBackChange, deckId, submitHandler, front, back }) {
     return (
         <form>

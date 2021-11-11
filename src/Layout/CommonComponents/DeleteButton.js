@@ -1,5 +1,6 @@
 import React from "react";
 
+//shared delete button for all pages that utilize one
 export default function DeleteButton({handler, id}) {
     return (
         <button

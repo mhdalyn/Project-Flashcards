@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+//shared breadcrumb trail for all pages that utilize a breadcrumb trail
 export default function Breadcrumb({deck, pageName}) {
+    //only renders the deck portion of the breadcrumb if deck object is provided
     let deckCrumb = ""
     if (deck) {
         deckCrumb = (

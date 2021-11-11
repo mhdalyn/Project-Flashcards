@@ -9,13 +9,17 @@ export default function EditCard() {
     const history = useHistory();
     const [deck, setDeck] = useState({});
     const [card, setCard] = useState({})
+    //tracks form and sets initial values to initial card values to be edited
     const handleFrontChange = (event) => setCard({ id: cardId, deckId: deck.id, front: event.target.value, back: card.back });
     const handleBackChange = (event) => setCard({ id: cardId, deckId: deck.id, front: card.front, back: event.target.value });
+    //updates card information
     async function submitHandler(event) {
         event.preventDefault();
         await updateCard(card);
+        //returns user to deck view screen on edit submission
         history.push(`/decks/${deckId}`);
     }
+    //loads initial deck and card information
     useEffect(() => {
         async function loadDeck() {
             const response = await readDeck(deckId);

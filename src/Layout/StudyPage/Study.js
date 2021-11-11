@@ -45,17 +45,21 @@ export default function Study() {
 
   //increases index until the final card, then prompts user to decide to restart or return to home page
   function handleNext() {
+    //moves to next card in deck until final card & flips card back to front
     if (index + 1 < deck.cards.length) {
       setIndex(index + 1);
       setSide("front")
     } else {
+      //upon hitting final card, prompts user to restart or quit studying
       const response = window.confirm(
         "Restart cards? \n \n Click 'cancel' to return to the home page."
       );
       if (response) {
+        //resets index to zero, taking user back to first card & flips card back to front
         setIndex(0);
         setSide("front")
       } else {
+        //redirects home if user chooses not to restart
         history.push("/");
       }
     }

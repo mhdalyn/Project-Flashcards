@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import DeleteButton from "../CommonComponents/DeleteButton";
 
+//card component representing individual cards for the list on the deck view page
 export default function CardCard({handleDeleteCard, card, deckId}) {
     return (
         <>
