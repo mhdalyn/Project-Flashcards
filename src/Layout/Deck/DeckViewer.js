@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { readDeck } from "../../utils/api";
 import { deleteDeck, deleteCard } from "../../utils/api";
 import Breadcrumb from "../CommonComponents/Breadcrumb";
+import CardCard from "./CardCard";
 import DeleteButton from "../CommonComponents/DeleteButton";
 
 export default function DeckView() {
@@ -45,31 +46,14 @@ export default function DeckView() {
         }
     };
     
+    //maps out cards once deck is loaded
     useEffect(() => {
         if (deck.cards) {
-            //TODO: create component for cards
             setCardList(deck.cards.map((card) => {
                 return (
                     <div key={card.id} className="card mb-3" >
-                        <div className="row no-gutters">
-                            <div className="col">
-                                <div className="card-body">
-                                    <p className="card-text">{card.front}</p>
-                                </div>
-                            </div>
-                            <div className="col">
-                                <div className="card-body">
-                                    <p className="card-text">{card.back}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="row no-gutters align-right">
-                            <Link className="btn btn-secondary" to={`/decks/${deck.id}/cards/${card.id}/edit`}>
-                                <span className="oi oi-pencil" /> Edit Card
-                            </Link>
-                            <DeleteButton handler={handleDeleteCard} id={card.id} />
-                        </div>
-                    </div>
+                        <CardCard card={card} deckId={deck.id} handleDeleteCard={handleDeleteCard} />
+                     </div>
                 )
             }))
         }

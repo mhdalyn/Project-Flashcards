@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { deleteDeck, listDecks } from "../../utils/api";
-import DeleteButton from "../CommonComponents/DeleteButton";
+import DeckCard from "./DeckCard.js"
 
 export default function DeckList() {
   const [deckList, setDeckList] = useState([]);
@@ -30,21 +29,10 @@ export default function DeckList() {
   //renders the page every time deckList is updated
   useEffect(() => {
     setContent(() =>
-
-      //TODO: create component for deck list
       deckList.map((deck) => {
         return (
           <div key={deck.id}>
-            <h1>{deck.name}</h1>
-            <p>{deck.cards.length} cards</p>
-            <p>{deck.description}</p>
-            <Link className="btn btn-secondary" to={`/decks/${deck.id}`}>
-              <span className="oi oi-pencil" /> View
-            </Link>
-            <Link className="btn btn-primary" to={`/decks/${deck.id}/study`}>
-              <span className="oi oi-book" /> Study
-            </Link>
-            <DeleteButton handler={handleDelete} id={deck.id} />
+            <DeckCard deck={deck} handleDelete={handleDelete} />
           </div>
         );
       })
