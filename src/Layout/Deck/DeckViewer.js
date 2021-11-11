@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router";
 import { Link } from "react-router-dom";
-import { readDeck } from "../../utils/api";
-import { deleteDeck, deleteCard } from "../../utils/api";
+import { deleteDeck, deleteCard, readDeck } from "../../utils/api";
 import Breadcrumb from "../CommonComponents/Breadcrumb";
 import CardCard from "./CardCard";
 import DeleteButton from "../CommonComponents/DeleteButton";
