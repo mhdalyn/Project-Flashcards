@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router";
-import Header from "./Header";
+import Header from "./CommonComponents/Header";
 import NotFound from "./NotFound";
 import CreateDeckButton from "./HomePage/CreateDeckButton";
 import DeckList from "./HomePage/DeckList"

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { deleteDeck, listDecks } from "../../utils/api";
-import DeleteButton from "../DeleteButton";
+import DeleteButton from "../CommonComponents/DeleteButton";
 
 export default function DeckList() {
   const [deckList, setDeckList] = useState([]);
@@ -30,6 +30,8 @@ export default function DeckList() {
   //renders the page every time deckList is updated
   useEffect(() => {
     setContent(() =>
+
+      //TODO: create component for deck list
       deckList.map((deck) => {
         return (
           <div key={deck.id}>

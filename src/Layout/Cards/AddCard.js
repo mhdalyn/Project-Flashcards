@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import { Link } from "react-router-dom";
 import { createCard, readDeck } from "../../utils/api";
+import Breadcrumb from "../CommonComponents/Breadcrumb";
 import CardForm from "./CardForm";
 
 
@@ -30,19 +30,7 @@ export default function AddCard() {
     }
     return (
         <div>
-            <nav aria-label="breadcrumb">
-                <ol className="breadcrumb">
-                    <li className="breadcrumb-item">
-                        <Link to="/"><span className="oi oi-home" /> Home</Link>
-                    </li>
-                    <li className="breadcrumb-item">
-                        <Link to={`/decks/${deck.id}`}>{deck.name}</Link>
-                    </li>
-                    <li className="breadcrumb-item active" aria-current="page">
-                        Add Card
-                    </li>
-                </ol>
-            </nav>
+            <Breadcrumb deck={deck} pageName="Add Card" />
             <CardForm handleFrontChange={handleFrontChange} handleBackChange={handleBackChange} deckId={deckId} submitHandler={submitHandler} front={cardFront} back={cardBack} />
         </div>
     )

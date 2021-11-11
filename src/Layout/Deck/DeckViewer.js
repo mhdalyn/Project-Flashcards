@@ -3,7 +3,8 @@ import { useHistory, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { readDeck } from "../../utils/api";
 import { deleteDeck, deleteCard } from "../../utils/api";
-import DeleteButton from "../DeleteButton";
+import Breadcrumb from "../CommonComponents/Breadcrumb";
+import DeleteButton from "../CommonComponents/DeleteButton";
 
 export default function DeckView() {
     const history = useHistory();
@@ -20,7 +21,8 @@ export default function DeckView() {
     useEffect(() => {
         loadDeck();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [deckId]);
+    }, []);
+
     //deletes a deck when delete button is pressed
     const handleDeleteDeck = async (id) => {
         const result = window.confirm(
@@ -45,6 +47,7 @@ export default function DeckView() {
     
     useEffect(() => {
         if (deck.cards) {
+            //TODO: create component for cards
             setCardList(deck.cards.map((card) => {
                 return (
                     <div key={card.id} className="card mb-3" >
@@ -74,16 +77,7 @@ export default function DeckView() {
     }, [deck])
     return (
         <div>
-            <nav aria-label="breadcrumb">
-                <ol className="breadcrumb">
-                    <li className="breadcrumb-item">
-                        <Link to="/"><span className="oi oi-home" /> Home</Link>
-                    </li>
-                    <li className="breadcrumb-item active" aria-current="page">
-                        {deck.name}
-                    </li>
-                </ol>
-            </nav>
+            <Breadcrumb pageName={deck.name} />
             <h5>{deck.name}</h5>
             <p>{deck.description}</p>
             <Link className="btn btn-secondary" to={`/decks/${deck.id}/edit`}>

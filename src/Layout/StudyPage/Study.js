@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router";
-import { Link } from "react-router-dom";
 import { readDeck } from "../../utils/api";
+import Breadcrumb from "../CommonComponents/Breadcrumb";
+import StudyCard from "./StudyCard";
 
 export default function Study() {
   const { deckId } = useParams();
@@ -28,60 +29,7 @@ export default function Study() {
   useEffect(() => {
     //uses an if to only run once deck state is loaded
     if (deck.cards) {
-      if (deck.cards.length > 2) {
-        const currentCard = deck.cards[index];
-        if (side === "front") {
-          setCard(
-            <div className="card w-75">
-              <div className="card-body">
-                <h5 className="card-title">
-                  Card {index + 1} of {deck.cards.length}
-                </h5>
-                <p className="card-text">{currentCard.front}</p>
-                <button className="btn btn-secondary" onClick={handleFlip}>
-                  Flip
-                </button>
-              </div>
-            </div>
-          );
-        } else {
-          setCard(
-            <div className="card w-75">
-              <div className="card-body">
-                <h5 className="card-title">
-                  Card {index + 1} of {deck.cards.length}
-                </h5>
-                <p className="card-text">{currentCard.back}</p>
-                <button className="btn btn-secondary" onClick={handleFlip}>
-                  Flip
-                </button>
-                <button className="btn btn-primary" onClick={handleNext}>
-                  Next
-                </button>
-              </div>
-            </div>
-          )
-        }
-
-      } else {
-        setCard(
-          <div className="card w-75">
-            <div className="card-body">
-              <h5 className="card-title">Not enough Cards</h5>
-              <p className="card-text">
-                You need at least 3 cards to study. there are{" "}
-                {deck.cards.length} cards in this deck.
-              </p>
-              <Link
-                className="btn btn-secondary"
-                to={`/decks/${deck.id}/cards/new`}
-              >
-                <span className="oi oi-plus" /> Add Cards
-              </Link>
-            </div>
-          </div>
-        );
-      }
+      setCard(<StudyCard deck={deck} handleNext={handleNext} handleFlip={handleFlip} index={index} side={side} />)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deck, index, side]);
@@ -115,19 +63,7 @@ export default function Study() {
 
   return (
     <>
-      <nav aria-label="breadcrumb">
-        <ol className="breadcrumb">
-          <li className="breadcrumb-item">
-            <Link to="/"><span className="oi oi-home" /> Home</Link>
-          </li>
-          <li className="breadcrumb-item">
-            <Link to={`/decks/${deck.id}`}>{deck.name}</Link>
-          </li>
-          <li className="breadcrumb-item active" aria-current="page">
-            Study
-          </li>
-        </ol>
-      </nav>
+      <Breadcrumb deck={deck} pageName="Study" />
       <h1>Study: {deck.name}</h1>
       {card}
     </>

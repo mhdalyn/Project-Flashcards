@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { updateDeck, readDeck } from "../../utils/api";
+import Breadcrumb from "../CommonComponents/Breadcrumb";
+import DeckForm from "./DeckForm";
 
 export default function EditDeck() {
     const { deckId } = useParams();
     const history = useHistory();
-    const [deck, setDeck] = useState({name:"", description:""});
+    const [deck, setDeck] = useState({ name: "", description: "" });
     const handleDeckNameChange = (event) => setDeck({ name: event.target.value, description: deck.description, id: deck.id, cards: deck.cards });
     const handleDescriptionChange = (event) => setDeck({ name: deck.name, description: event.target.value, id: deck.id, cards: deck.cards });
     async function submitHandler(event) {
@@ -25,49 +27,15 @@ export default function EditDeck() {
     }, [deckId])
     return (
         <div>
-            <nav aria-label="breadcrumb">
-                <ol className="breadcrumb">
-                    <li className="breadcrumb-item">
-                        <Link to="/"><span className="oi oi-home" /> Home</Link>
-                    </li>
-                    <li className="breadcrumb-item">
-                        <Link to={`/decks/${deck.id}`}>{deck.name}</Link>
-                    </li>
-                    <li className="breadcrumb-item active" aria-current="page">
-                        Edit Deck
-                    </li>
-                </ol>
-            </nav>
-            <form>
-                <div className="form-group">
-                    <label htmlFor="name">Name</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="name"
-                        placeholder="Deck Name"
-                        onChange={handleDeckNameChange}
-                        value={deck.name}
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="description">Description</label>
-                    <textarea
-                        className="form-control"
-                        id="description"
-                        rows="3"
-                        placeholder="Brief description of the deck"
-                        onChange={handleDescriptionChange}
-                        value={deck.description}
-                    ></textarea>
-                </div>
-                <Link className="btn btn-secondary" to="/">
-                    Cancel
-                </Link>
-                <button className="btn btn-primary" onClick={submitHandler}>
-                    Submit
-                </button>
-            </form>
+            <Breadcrumb deck={deck} pageName="Edit Deck" />
+            <DeckForm
+                deckName={deck.name}
+                description={deck.description}
+                handleDeckNameChange={handleDeckNameChange}
+                handleDescriptionChange={handleDescriptionChange}
+                submitHandler={submitHandler}
+                cancelTarget={`/decks/${deckId}`}
+            />
         </div>
     );
 }

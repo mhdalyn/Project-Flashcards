@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import { createDeck } from "../../utils/api";
+import Breadcrumb from "../CommonComponents/Breadcrumb";
+import DeckForm from "./DeckForm";
 
 export default function DeckCreator() {
     const history = useHistory();
@@ -17,46 +19,15 @@ export default function DeckCreator() {
     }
     return (
         <div>
-            <nav aria-label="breadcrumb">
-                <ol className="breadcrumb">
-                    <li className="breadcrumb-item">
-                        <Link to="/"><span className="oi oi-home" /> Home</Link>
-                    </li>
-                    <li className="breadcrumb-item active" aria-current="page">
-                        Create Deck
-                    </li>
-                </ol>
-            </nav>
-            <form>
-                <div className="form-group">
-                    <label htmlFor="name">Name</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="name"
-                        placeholder="Deck Name"
-                        onChange={handleDeckNameChange}
-                        value={deckName}
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="description">Description</label>
-                    <textarea
-                        className="form-control"
-                        id="description"
-                        rows="3"
-                        placeholder="Brief description of the deck"
-                        onChange={handleDescriptionChange}
-                        value={description}
-                    ></textarea>
-                </div>
-                <Link className="btn btn-secondary" to="/">
-                    Cancel
-                </Link>
-                <button className="btn btn-primary" onClick={submitHandler}>
-                    Submit
-                </button>
-            </form>
+            <Breadcrumb pageName="Create Deck" />
+            <DeckForm
+                deckName={deckName}
+                description={description}
+                handleDeckNameChange={handleDeckNameChange}
+                handleDescriptionChange={handleDescriptionChange}
+                submitHandler={submitHandler}
+                cancelTarget="/"
+            />
         </div>
     );
 }
