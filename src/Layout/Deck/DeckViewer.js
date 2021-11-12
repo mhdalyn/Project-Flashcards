@@ -11,17 +11,15 @@ export default function DeckView() {
     const { deckId } = useParams();
     const [deck, setDeck] = useState({});
     const [cardList, setCardList] = useState([]);
-
+    
     //loadDeck exists outside the useEffect to allow handleDeleteCard to call it to rerender after cards are deleted
-    async function loadDeck() {
-        const response = await readDeck(deckId);
-        setDeck(response);
-    }
-
     useEffect(() => {
+        async function loadDeck() {
+            const response = await readDeck(deckId);
+            setDeck(response);
+        }
         loadDeck();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [deckId]);
 
     //deletes a deck when delete button is pressed
     const handleDeleteDeck = async (id) => {
@@ -41,7 +39,8 @@ export default function DeckView() {
         );
         if (result) {
             await deleteCard(id);
-            loadDeck();
+            const response = await readDeck(deckId);
+            setDeck(response);
         }
     };
     
